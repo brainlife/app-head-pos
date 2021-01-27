@@ -22,3 +22,4 @@ singularity exec docker://brainlife/mne:0.22.0 python3 head-pos.py
 
 # Test local
 #python3 ./head-pos.py
+singularity exec -e -B /network/lustre/iss01/cenir/analyse/meeg/BRAINLIFE/aurore:/input docker://brainlife/mne:0.22.0 python3 head-pos.py .

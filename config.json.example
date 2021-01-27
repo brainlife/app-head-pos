@@ -1,5 +1,5 @@
 {
-    "input_raw": "/network/lustre/iss01/cenir/analyse/meeg/BRAINLIFE/aurore/data_for_test/rest1-raw.fif",
+    "input_raw": "/input/data_for_test/rest1-raw.fif",
     "output": "head_pos_file.pos",
     "params_chpi_amplitudes": {
         "t_step_min": 0.01,
