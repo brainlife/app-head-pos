@@ -1,24 +1,3 @@
 {
-    "input_raw": "/input/data_for_test/rest1-raw.fif",
-    "output": "head_pos_file.pos",
-    "params_chpi_amplitudes": {
-        "t_step_min": 0.01,
-        "t_window": "auto",
-        "ext_order": 1,
-        "tmin": 0,
-        "tmax": null,
-        "verbose": null
-   },
-    "params_chpi_locs": {
-        "t_step_max": 1.0,
-        "too_close": "raise",
-        "adjust_dig": false,
-        "verbose": null
-   },
-    "params_head_pos": {
-        "dist_limit": 0.005,
-        "gof_limit": 0.98,
-        "adjust_dig": false,
-        "verbose": null
-   }
+    "fif": "/input/data_for_test/rest1-raw.fif"
 }
