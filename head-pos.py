@@ -12,18 +12,18 @@ def head_pos(raw):
 
     Returns
     -------
-    head_pos: ndarray, shape (n_pos, 10)
+    head_pos_file: ndarray, shape (n_pos, 10)
         The time-varying head positions.
     """
 
     chpi_amplitudes = mne.chpi.compute_chpi_amplitudes(raw)
     chpi_locs = mne.chpi.compute_chpi_locs(raw.info, chpi_amplitudes)
-    head_pos = mne.chpi.compute_head_pos(raw.info, chpi_locs)
+    head_pos_file = mne.chpi.compute_head_pos(raw.info, chpi_locs)
 
     # Save file
     mne.chpi.write_head_pos("out_dir/head_pos.pos", head_pos)
 
-    return head_pos
+    return head_pos_file
 
 
 def main():
@@ -40,7 +40,7 @@ def main():
     raw = mne.io.read_raw_fif(data_file, allow_maxshield=True)  
 
     # Apply head pos
-    head_pos(raw)
+    head_pos_file = head_pos(raw)
 
     # Success message in product.json
     dict_json_product['brainlife'].append({'type': 'success',
