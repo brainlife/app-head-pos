@@ -3,9 +3,9 @@ import json
 
 
 def head_pos(raw):
-	"""Compute time-varying head positions from cHPI and save them in a .pos file.
+    """Compute time-varying head positions from cHPI and save them in a .pos file.
 
-	Parameters
+    Parameters
     ----------
     raw: instance of mne.io.Raw
         Fif file contaning cHPI info 
@@ -16,17 +16,19 @@ def head_pos(raw):
         The time-varying head positions.
     """
 
-	chpi_amplitudes = mne.chpi.compute_chpi_amplitudes(raw)
+    chpi_amplitudes = mne.chpi.compute_chpi_amplitudes(raw)
     chpi_locs = mne.chpi.compute_chpi_locs(raw.info, chpi_amplitudes)
     head_pos = mne.chpi.compute_head_pos(raw.info, chpi_locs)
 
-# Save file
-mne.chpi.write_head_pos("out_dir/head_pos.pos", head_pos)
+    # Save file
+    mne.chpi.write_head_pos("out_dir/head_pos.pos", head_pos)
+
+    return head_pos
 
 
 def main():
 
-	# Generate a json.product to display messages on Brainlife UI
+    # Generate a json.product to display messages on Brainlife UI
     dict_json_product = {'brainlife': []}
 
     # Load inputs from config.json
