@@ -1,6 +1,6 @@
 # app-head-pos
 
-Draft of an App that computes cHPI from `raw.info` provided in the `raw.fif` when the cHPI were recorded 
+Draft of an App that computes time varying head positions from `raw.info` provided in the `raw.fif` when the cHPI were recorded 
 ([see the mne tutorial](https://mne.tools/stable/auto_tutorials/preprocessing/plot_59_head_positions.html#sphx-glr-auto-tutorials-preprocessing-plot-59-head-positions-py)). 
 
 # app-head-pos documentation
@@ -10,7 +10,6 @@ Draft of an App that computes cHPI from `raw.info` provided in the `raw.fif` whe
 4) Ouput file is a `.pos` file with the cHPI, which will be read by 
    [`mne.chpi.read_head_pos`](https://mne.tools/stable/generated/mne.chpi.read_head_pos.html?highlight=mne%20chpi%20read_head_pos#mne.chpi.read_head_pos) and can be used in Maxwell Filtering (see the corresponding BL App).
 
-   
 ### Authors
 - [Aurore Bussalb](aurore.bussalb@icm-institute.org)
 
