@@ -21,7 +21,7 @@ def head_pos(raw):
     head_pos_file = mne.chpi.compute_head_pos(raw.info, chpi_locs)
 
     # Save file
-    mne.chpi.write_head_pos("out_dir/head_pos.pos", head_pos)
+    mne.chpi.write_head_pos("out_dir/headshape.pos", head_pos)
 
     return head_pos_file
 
