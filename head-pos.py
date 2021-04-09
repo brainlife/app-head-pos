@@ -35,16 +35,32 @@ def main():
     with open('config.json') as config_json:
         config = json.load(config_json)
 
-    # Get cHPI
+    # Read the file and save it in out_dir
     data_file = config.pop('fif')
     raw = mne.io.read_raw_fif(data_file, allow_maxshield=True)  
+    raw.save("out_dir/meg.fif", overwrite=True)
+
+    # Read the crosstalk files
+    cross_talk_file = config.pop('crosstalk')
+    if os.path.exists(cross_talk_file) is True:
+        shutil.copy2(cross_talk_file, 'out_dir/crosstalk_meg.fif')  # required to run a pipeline on BL
+
+    # Read the calibration file
+    calibration_file = config.pop('calibration')
+    if os.path.exists(calibration_file) is True:
+        shutil.copy2(calibration_file, 'out_dir/calibration_meg.dat')  # required to run a pipeline on BL
+
+    # Get head pos file
+    destination_file = config.pop('destination')
+    if os.path.exists(destination_file) is True:
+        shutil.copy2(destination_file, 'out_dir/destination.fif')  # required to run a pipeline on BL
 
     # Apply head pos
     head_pos_file = head_pos(raw)
 
     # Success message in product.json
     dict_json_product['brainlife'].append({'type': 'success',
-                                           'msg': 'head position file was written successfully.'})
+                                           'msg': 'Head position file was written successfully.'})
 
     # Save the dict_json_product in a json file
     with open('product.json', 'w') as outfile:
