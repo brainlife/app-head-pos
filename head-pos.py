@@ -52,10 +52,15 @@ def main():
     if os.path.exists(calibration_file) is True:
         shutil.copy2(calibration_file, 'out_dir/calibration_meg.dat')  # required to run a pipeline on BL
 
-    # Get head pos file
+    # Read destination file 
     destination_file = config.pop('destination')
     if os.path.exists(destination_file) is True:
         shutil.copy2(destination_file, 'out_dir/destination.fif')  # required to run a pipeline on BL
+
+    # Read events file 
+    events_file = config.pop('events')
+    if os.path.exists(events_file) is True:
+        shutil.copy2(events_file, 'out_dir/events.tsv')  # required to run a pipeline on BL
 
     # Apply head pos
     head_pos_file = head_pos(raw)
