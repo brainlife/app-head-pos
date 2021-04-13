@@ -10,7 +10,7 @@ def head_pos(raw):
     Parameters
     ----------
     raw: instance of mne.io.Raw
-        Fif file contaning cHPI info. 
+        MEG fif file contaning cHPI info. 
 
     Returns
     -------
