@@ -7,8 +7,8 @@ Draft of an App that computes time varying head positions from `raw.info` provid
 
 1) Compute the cHPI
 3) Input file is a MEG file in `.fif` format containing cHPI information
-4) Ouput file is a `.pos` file with the cHPI, which will be read by 
-   [`mne.chpi.read_head_pos`](https://mne.tools/stable/generated/mne.chpi.read_head_pos.html?highlight=mne%20chpi%20read_head_pos#mne.chpi.read_head_pos) and can be used in Maxwell Filtering (see the corresponding BL App).
+4) Ouput file is a `.pos` file with the cHPI, which can be read by 
+   [`mne.chpi.read_head_pos`](https://mne.tools/stable/generated/mne.chpi.read_head_pos.html?highlight=mne%20chpi%20read_head_pos#mne.chpi.read_head_pos) and will be used in Maxwell Filtering (see the corresponding BL App).
 
 ### Authors
 - [Aurore Bussalb](aurore.bussalb@icm-institute.org)
@@ -39,8 +39,8 @@ This App has not yet been registered in Brainlife.io.
 ### Running Locally (on your machine)
 
 1. git clone this repo
-2. Inside the cloned directory, create `config.json` with something like the following content with paths to your input 
-   files and values of the input parameters (see `config.json.example`).
+2. Inside the cloned directory, create `config.json` with the same keys as in `config.json.example` but with paths to your input 
+   files and values of the input parameters.
 
 ```json
 {
