@@ -11,6 +11,18 @@ def head_pos(raw):
     ----------
     raw: instance of mne.io.Raw
         MEG fif file contaning cHPI info. 
+    param_t_step_min: float
+        Minimum time step to use to compute cHPI amplitudes. If correlations are sufficiently high, t_step_max 
+        will be used. Default is 0.01.
+    param_t_window: float
+        Time window to use to estimate the amplitudes. Default is 0.2 (200 ms).
+    param_ext_order: int
+        The external order for SSS-like interfence suppression to compute cHPI amplitudes. Default is 1.
+    param_tmin: float 
+        Start time of the raw data to use in seconds to compute cHPI amplitudes. Default is 0.
+    param_tmax: float or None
+        End time of the raw data to use in seconds to compute cHPI amplitudes. Default is None.
+    t_step_max
 
     Returns
     -------
@@ -18,7 +30,8 @@ def head_pos(raw):
         The time-varying head positions.
     """
 
-    chpi_amplitudes = mne.chpi.compute_chpi_amplitudes(raw)
+    chpi_amplitudes = mne.chpi.compute_chpi_amplitudes(raw, param_t_step_min, param_t_window, 
+                                                       param_ext_order, param_tmin, param_tmax)
     chpi_locs = mne.chpi.compute_chpi_locs(raw.info, chpi_amplitudes)
     head_pos_file = mne.chpi.compute_head_pos(raw.info, chpi_locs)
 
