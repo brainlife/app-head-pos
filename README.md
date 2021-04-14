@@ -6,7 +6,13 @@ Repository of a Brainlife App that computes time varying head positions from `ra
 # app-head-pos documentation
 
 1) Compute the cHPI
-3) Input file is a MEG file in `.fif` format containing cHPI information
+3) Input file are:
+    * a MEG file in `.fif` format containing cHPI information,
+    * an optional fine calibration file in `.dat`,
+    * an optional crosstalk compensation file in `.fif`,
+    * an optional head position file in `.pos`,
+    * an optional destination file in `.fif`,
+    * an optional event file in `.tsv`.
 4) Input parameters are:
     * `param_compute_amplitudes_t_step_min`: `float`, minimum time step to use to compute cHPI amplitudes. Default is 0.01.
     * `param_compute_amplitudes_t_window`: `float`, time window to use to estimate the amplitudes. Default is 0.2.
