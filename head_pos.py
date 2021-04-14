@@ -11,18 +11,31 @@ def head_pos(raw):
     ----------
     raw: instance of mne.io.Raw
         MEG fif file contaning cHPI info. 
-    param_t_step_min: float
+    param_compute_amplitudes_t_step_min: float
         Minimum time step to use to compute cHPI amplitudes. If correlations are sufficiently high, t_step_max 
         will be used. Default is 0.01.
-    param_t_window: float
+    param_compute_amplitudes_t_window: float
         Time window to use to estimate the amplitudes. Default is 0.2 (200 ms).
-    param_ext_order: int
+    param_compute_amplitudes_ext_order: int
         The external order for SSS-like interfence suppression to compute cHPI amplitudes. Default is 1.
-    param_tmin: float 
+    param_compute_amplitudes_tmin: float 
         Start time of the raw data to use in seconds to compute cHPI amplitudes. Default is 0.
-    param_tmax: float or None
+    param_compute_amplitudes_tmax: float or None
         End time of the raw data to use in seconds to compute cHPI amplitudes. Default is None.
-    t_step_max
+    param_compute_locs_t_step_max: float
+        Maximum step to use to compute HPI coils locations. Default is 1.
+    param_compute_locs_too_close: str
+        How to handle HPI positions too close to sensors when computing HPI coils locations. 
+        Can be 'raise', (default), 'warning', or 'info'.
+    param_compute_locs_adjust_dig: bool
+        If True, adjust the digitization locations used for fitting when computing HPI coils locations.
+        Default is False.
+    param_compute_head_pos_dist_limit: float
+        Minimum distance (m) to accept for coil position fitting when computing head positions. Default is 0.005N
+    param_compute_head_pos_gof_limit: float
+        Minimum goodness of fit to accept for each coil to compute head positions. Default is 0.98.
+    param_compute_head_pos_adjust_dig: bool
+        If True, adjust the digitization locations used for fitting when computing head positions. Default is False.
 
     Returns
     -------
@@ -30,10 +43,20 @@ def head_pos(raw):
         The time-varying head positions.
     """
 
-    chpi_amplitudes = mne.chpi.compute_chpi_amplitudes(raw, param_t_step_min, param_t_window, 
-                                                       param_ext_order, param_tmin, param_tmax)
-    chpi_locs = mne.chpi.compute_chpi_locs(raw.info, chpi_amplitudes)
-    head_pos_file = mne.chpi.compute_head_pos(raw.info, chpi_locs)
+    # Extract HPI coils amplitudes as a function of time
+    chpi_amplitudes = mne.chpi.compute_chpi_amplitudes(raw, param_compute_amplitudes_t_step_min, 
+                                                       param_compute_amplitudes_t_window, 
+                                                       param_compute_amplitudes_ext_order, 
+                                                       param_compute_amplitudes_tmin, 
+                                                       param_compute_amplitudes_tmax)
+    
+    # Compute time-varying HPI coils locations  
+    chpi_locs = mne.chpi.compute_chpi_locs(raw.info, chpi_amplitudes, param_compute_locs_t_step_max,  
+                                           param_compute_locs_too_close, param_compute_locs_adjust_dig)
+
+    # Compute head positions from the coil locations
+    head_pos_file = mne.chpi.compute_head_pos(raw.info, chpi_locs, param_compute_head_pos_dist_limit,
+                                              param_compute_head_pos_gof_limit, param_compute_head_pos_adjust_dig)
 
     # Save file
     mne.chpi.write_head_pos("out_dir/headshape.pos", head_pos_file)
@@ -75,8 +98,18 @@ def main():
     if os.path.exists(events_file) is True:
         shutil.copy2(events_file, 'out_dir/events.tsv')  # required to run a pipeline on BL
 
+    # Check if param_st_duration is not None
+    if config['param_compute_amplitudes_tmax'] == "":
+        config['param_compute_amplitudes_tmax'] = None  # when App is run on Bl, no value for this parameter corresponds to ''
+
+    # Define kwargs
+    # Delete keys values in config.json when this app is executed on Brainlife
+    if '_app' and '_tid' and '_inputs' and '_outputs' in config.keys():
+        del config['_app'], config['_tid'], config['_inputs'], config['_outputs'] 
+    kwargs = config  
+
     # Apply head pos
-    head_pos_file = head_pos(raw)
+    head_pos_file = head_pos(raw, **kwargs)
 
     # Success message in product.json
     dict_json_product['brainlife'].append({'type': 'success',

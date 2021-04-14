@@ -1,13 +1,28 @@
 # app-head-pos
 
-Repository of an App that computes time varying head positions from `raw.info` provided in the `raw.fif` when the cHPI were recorded 
+Repository of a Brainlife App that computes time varying head positions from `raw.info` provided in the `raw.fif` when the cHPI were recorded 
 ([see the mne tutorial](https://mne.tools/stable/auto_tutorials/preprocessing/plot_59_head_positions.html#sphx-glr-auto-tutorials-preprocessing-plot-59-head-positions-py)). 
 
 # app-head-pos documentation
 
 1) Compute the cHPI
 3) Input file is a MEG file in `.fif` format containing cHPI information
-4) Ouput file is a `.pos` file with the cHPI, which can be read by 
+4) Input parameters are:
+    * `param_compute_amplitudes_t_step_min`: `float`, minimum time step to use to compute cHPI amplitudes. Default is 0.01.
+    * `param_compute_amplitudes_t_window`: `float`, time window to use to estimate the amplitudes. Default is 0.2.
+    * `param_compute_amplitudes_ext_order`: `int`, the external order for SSS-like interfence suppression to compute cHPI amplitudes. Default is 1.
+    * `param_compute_amplitudes_tmin`: `float`, start time of the raw data to use in seconds to compute cHPI amplitudes. Default is 0.
+    * `param_compute_amplitudes_tmax`: `float`, optional, end time of the raw data to use in seconds to compute cHPI amplitudes. Default is `None`.
+    * `param_compute_locs_t_step_max`: `float`, maximum step to use to compute HPI coils locations. Default is 1.
+    * `param_compute_locs_too_close`: `str`, how to handle HPI positions too close to sensors when computing HPI coils locations. 
+Can be 'raise', (default), 'warning', or 'info'.
+    * `param_compute_locs_adjust_dig`: `bool`, if True, adjust the digitization locations used for fitting when computing HPI coils locations.
+Default is False.
+    * `param_compute_head_pos_dist_limit`: `float`, minimum distance (m) to accept for coil position fitting when computing head positions. 
+Default is 0.005.
+    * `param_compute_head_pos_gof_limit`: `float`, minimum goodness of fit to accept for each coil to compute head positions. Default is 0.98.
+    * `param_compute_head_pos_adjust_dig`: `bool`, if True, adjust the digitization locations used for fitting when computing head positions. Default is False.
+4) Ouput file is a `.pos` file containing the head positions, which can be read by 
    [`mne.chpi.read_head_pos`](https://mne.tools/stable/generated/mne.chpi.read_head_pos.html?highlight=mne%20chpi%20read_head_pos#mne.chpi.read_head_pos) and will be used in Maxwell Filtering (see the corresponding BL App).
 
 ### Authors
@@ -16,7 +31,6 @@ Repository of an App that computes time varying head positions from `raw.info` p
 ### Contributors
 - [Aurore Bussalb](aurore.bussalb@icm-institute.org)
 - [Maximilien Chaumon](maximilien.chaumon@icm-institute.org)
-- Christophe Gitton
 
 ### Funding Acknowledgement
 brainlife.io is publicly funded and for the sustainability of the project it is helpful to Acknowledge the use of the platform. We kindly ask that you acknowledge the funding below in your code and publications. Copy and past the following lines into your repository when using this code.

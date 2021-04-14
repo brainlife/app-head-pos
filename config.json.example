@@ -3,6 +3,17 @@
     "calibration": "/network/lustre/iss01/home/aurore.bussalb/Repositories/data_test_BL/sss_cal.dat",
     "crosstalk": "/network/lustre/iss01/home/aurore.bussalb/Repositories/data_test_BL/ct_sparse.fif",
     "destination": "/network/lustre/iss01/home/aurore.bussalb/Repositories/data_test_BL/mean_tm-raw.fif",
-	"events": "/network/lustre/iss01/home/aurore.bussalb/Repositories/app-create-events/out_dir_create_events/events.tsv"
+	"events": "/network/lustre/iss01/home/aurore.bussalb/Repositories/app-create-events/out_dir_create_events/events.tsv",
     "headshape": "",
+	"param_compute_amplitudes_t_step_min": 0.01,
+	"param_compute_amplitudes_t_window": 0.2,
+	"param_compute_amplitudes_ext_order": 1,
+	"param_compute_amplitudes_tmin": 0,
+	"param_compute_amplitudes_tmax: null,
+	"param_compute_locs_t_step_max": 1,
+	"param_compute_locs_too_close": "raise",
+	"param_compute_locs_adjust_dig": false,
+	"param_compute_head_pos_dist_limit": 0.005,
+	"param_compute_head_pos_gof_limit": 0.98,
+	"param_compute_head_pos_adjust_dig": false
 }
