@@ -31,7 +31,7 @@ def head_pos(raw):
         If True, adjust the digitization locations used for fitting when computing HPI coils locations.
         Default is False.
     param_compute_head_pos_dist_limit: float
-        Minimum distance (m) to accept for coil position fitting when computing head positions. Default is 0.005N
+        Minimum distance (m) to accept for coil position fitting when computing head positions. Default is 0.005.
     param_compute_head_pos_gof_limit: float
         Minimum goodness of fit to accept for each coil to compute head positions. Default is 0.98.
     param_compute_head_pos_adjust_dig: bool
