@@ -54,8 +54,8 @@ def head_pos(raw, param_compute_amplitudes_t_step_min,
     chpi_amplitudes = mne.chpi.compute_chpi_amplitudes(raw, t_step_min=param_compute_amplitudes_t_step_min, 
                                                        t_window=param_compute_amplitudes_t_window, 
                                                        ext_order=param_compute_amplitudes_ext_order, 
-                                                       t_min=param_compute_amplitudes_tmin, 
-                                                       t_max=param_compute_amplitudes_tmax)
+                                                       tmin=param_compute_amplitudes_tmin, 
+                                                       tmax=param_compute_amplitudes_tmax)
     
     # Compute time-varying HPI coils locations  
     chpi_locs = mne.chpi.compute_chpi_locs(raw.info, chpi_amplitudes, t_step_max=param_compute_locs_t_step_max,  
