@@ -4,7 +4,14 @@ import os
 import shutil
 
 
-def head_pos(raw):
+def head_pos(raw, param_compute_amplitudes_t_step_min, 
+             param_compute_amplitudes_t_window, 
+             param_compute_amplitudes_ext_order, 
+             param_compute_amplitudes_tmin, 
+             param_compute_amplitudes_tmax, param_compute_locs_t_step_max,  
+             param_compute_locs_too_close, param_compute_locs_adjust_dig, 
+             param_compute_head_pos_dist_limit,
+             param_compute_head_pos_gof_limit, param_compute_head_pos_adjust_dig):
     """Compute time-varying head positions from cHPI and save them in a .pos file.
 
     Parameters
@@ -44,19 +51,19 @@ def head_pos(raw):
     """
 
     # Extract HPI coils amplitudes as a function of time
-    chpi_amplitudes = mne.chpi.compute_chpi_amplitudes(raw, param_compute_amplitudes_t_step_min, 
-                                                       param_compute_amplitudes_t_window, 
-                                                       param_compute_amplitudes_ext_order, 
-                                                       param_compute_amplitudes_tmin, 
-                                                       param_compute_amplitudes_tmax)
+    chpi_amplitudes = mne.chpi.compute_chpi_amplitudes(raw, t_step_min=param_compute_amplitudes_t_step_min, 
+                                                       t_window=param_compute_amplitudes_t_window, 
+                                                       ext_order=param_compute_amplitudes_ext_order, 
+                                                       t_min=param_compute_amplitudes_tmin, 
+                                                       t_max=param_compute_amplitudes_tmax)
     
     # Compute time-varying HPI coils locations  
-    chpi_locs = mne.chpi.compute_chpi_locs(raw.info, chpi_amplitudes, param_compute_locs_t_step_max,  
-                                           param_compute_locs_too_close, param_compute_locs_adjust_dig)
+    chpi_locs = mne.chpi.compute_chpi_locs(raw.info, chpi_amplitudes, t_step_max=param_compute_locs_t_step_max,  
+                                           too_close=param_compute_locs_too_close, adjust_dig=param_compute_locs_adjust_dig)
 
     # Compute head positions from the coil locations
-    head_pos_file = mne.chpi.compute_head_pos(raw.info, chpi_locs, param_compute_head_pos_dist_limit,
-                                              param_compute_head_pos_gof_limit, param_compute_head_pos_adjust_dig)
+    head_pos_file = mne.chpi.compute_head_pos(raw.info, chpi_locs, dist_limit=param_compute_head_pos_dist_limit,
+                                              gof_limit=param_compute_head_pos_gof_limit, adjust_dig=param_compute_head_pos_adjust_dig)
 
     # Save file
     mne.chpi.write_head_pos("out_dir/headshape.pos", head_pos_file)
