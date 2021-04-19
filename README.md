@@ -54,7 +54,7 @@ brainlife.io is publicly funded and for the sustainability of the project it is 
 
 ### On Brainlife.io
 
-This App has not yet been registered in Brainlife.io.
+This App is still private on Brainlife.
 
 ### Running Locally (on your machine)
 
