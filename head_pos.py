@@ -89,6 +89,7 @@ def main():
     cross_talk_file = config.pop('crosstalk')
     if os.path.exists(cross_talk_file) is True:
         shutil.copy2(cross_talk_file, 'out_dir/crosstalk_meg.fif')  # required to run a pipeline on BL
+        print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
 
     # Read the calibration file
     calibration_file = config.pop('calibration')
