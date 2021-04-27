@@ -85,6 +85,9 @@ def main():
     raw = mne.io.read_raw_fif(data_file, allow_maxshield=True)  
     raw.save("out_dir/meg.fif", overwrite=True)
 
+    
+    ## Read the optional files ##
+    
     # Read the crosstalk file
     cross_talk_file = config.pop('crosstalk')
     if os.path.exists(cross_talk_file) is True:
@@ -109,7 +112,9 @@ def main():
     if config['param_compute_amplitudes_tmax'] == "":
         config['param_compute_amplitudes_tmax'] = None  # when App is run on Bl, no value for this parameter corresponds to ''
 
-    # Define kwargs
+    
+    ## Define kwargs ##
+
     # Delete headshape key from config file
     del config['headshape']
 
@@ -118,6 +123,7 @@ def main():
         del config['_app'], config['_tid'], config['_inputs'], config['_outputs'] 
     kwargs = config  
 
+    
     # Apply head pos
     head_pos_file = head_pos(raw, **kwargs)
 
