@@ -114,7 +114,7 @@ def main():
 
     # Read channels file 
     channels_file = config.pop('channels')
-    if channels_file is not None
+    if channels_file is not None:
         if os.path.exists(channels_file) is True:
             shutil.copy2(channels_file, 'out_dir/channels.tsv')  # required to run a pipeline on BL
 
