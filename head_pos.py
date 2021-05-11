@@ -80,45 +80,11 @@ def main():
     with open('config.json') as config_json:
         config = json.load(config_json)
 
-    # Read the meg file and save it in out_dir
+    # Read the meg file 
     data_file = config.pop('fif')
     raw = mne.io.read_raw_fif(data_file, allow_maxshield=True)  
-    raw.save("out_dir/meg.fif", overwrite=True)
 
-    
-    ## Read the optional files ##
-    
-    # Read the crosstalk file
-    cross_talk_file = config.pop('crosstalk')
-    if cross_talk_file is not None:
-        if os.path.exists(cross_talk_file) is True:
-            shutil.copy2(cross_talk_file, 'out_dir/crosstalk_meg.fif')  # required to run a pipeline on BL
-
-    # Read the calibration file
-    calibration_file = config.pop('calibration')
-    if calibration_file is not None:
-        if os.path.exists(calibration_file) is True:
-            shutil.copy2(calibration_file, 'out_dir/calibration_meg.dat')  # required to run a pipeline on BL
-
-    # Read destination file 
-    destination_file = config.pop('destination')
-    if destination_file is not None:
-        if os.path.exists(destination_file) is True:
-            shutil.copy2(destination_file, 'out_dir/destination.fif')  # required to run a pipeline on BL
-
-    # Read events file 
-    events_file = config.pop('events')
-    if events_file is not None
-        if os.path.exists(events_file) is True:
-            shutil.copy2(events_file, 'out_dir/events.tsv')  # required to run a pipeline on BL
-
-    # Read channels file 
-    channels_file = config.pop('channels')
-    if channels_file is not None:
-        if os.path.exists(channels_file) is True:
-            shutil.copy2(channels_file, 'out_dir/channels.tsv')  # required to run a pipeline on BL
-
-    # Check if param_st_duration is not None
+    # Check if param_compute_amplitudes_tmax is not None
     if config['param_compute_amplitudes_tmax'] == "":
         config['param_compute_amplitudes_tmax'] = None  # when App is run on Bl, no value for this parameter corresponds to ''
 
@@ -135,7 +101,7 @@ def main():
 
     
     # Apply head pos
-    head_pos_file = head_pos(raw, **kwargs)
+    head_pos(raw, **kwargs)
 
     # Success message in product.json
     dict_json_product['brainlife'].append({'type': 'success',
