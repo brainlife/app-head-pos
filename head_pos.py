@@ -1,7 +1,10 @@
+#!/usr/local/bin/python3
+
 import mne
 import json
 import os
 import shutil
+import helper
 
 
 def head_pos(raw, param_compute_amplitudes_t_step_min, 
@@ -84,33 +87,35 @@ def main():
     data_file = config.pop('fif')
     raw = mne.io.read_raw_fif(data_file, allow_maxshield=True)  
 
+    config = helper.convert_parameters_to_None(config)
+
+    config = helper.read_optional_files(config, 'out_dir')
+
     ## Read the optional file ##
 
-    # Read the destination file
-    if 'destination' in config.keys():
-        destination_file = config.pop('destination')
-        if destination_file is not None:
-            if os.path.exists(destination_file) is True:
-                shutil.copy2(destination_file, 'out_dir/destination.fif')  # required to run a pipeline on BL
+    # # Read the destination file
+    # if 'destination' in config.keys():
+    #     destination_file = config.pop('destination')
+    #     if destination_file is not None:
+    #         if os.path.exists(destination_file) is True:
+    #             shutil.copy2(destination_file, 'out_dir/destination.fif')  # required to run a pipeline on BL
 
 
     # Check if param_compute_amplitudes_tmax is not None
-    if config['param_compute_amplitudes_tmax'] == "":
-        config['param_compute_amplitudes_tmax'] = None  # when App is run on Bl, no value for this parameter corresponds to ''
+    # if config['param_compute_amplitudes_tmax'] == "":
+    #     config['param_compute_amplitudes_tmax'] = None  # when App is run on Bl, no value for this parameter corresponds to ''
 
     
     ## Define kwargs ##
 
-    # Delete headshape
-    if 'headshape' in config.keys():
-        del config['headshape']
+    # # Delete headshape
+    # if 'headshape' in config.keys():
+    #     del config['headshape']
 
     # Delete keys values in config.json when this app is executed on Brainlife
-    if '_app' and '_tid' and '_inputs' and '_outputs' in config.keys():
-        del config['_app'], config['_tid'], config['_inputs'], config['_outputs'] 
+    config = helper.define_kwargs(config) 
     kwargs = config  
 
-    
     # Apply head pos
     head_pos(raw, **kwargs)
 
