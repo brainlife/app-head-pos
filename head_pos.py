@@ -87,34 +87,14 @@ def main():
     data_file = config.pop('fif')
     raw = mne.io.read_raw_fif(data_file, allow_maxshield=True)  
 
+    # Convert empty strings values to None
     config = helper.convert_parameters_to_None(config)
 
+    # Read and optionam files
     config = helper.read_optional_files(config, 'out_dir')
-
-    ## Read the optional file ##
-
-    # # Read the destination file
-    # if 'destination' in config.keys():
-    #     destination_file = config.pop('destination')
-    #     if destination_file is not None:
-    #         if os.path.exists(destination_file) is True:
-    #             shutil.copy2(destination_file, 'out_dir/destination.fif')  # required to run a pipeline on BL
-
-
-    # Check if param_compute_amplitudes_tmax is not None
-    # if config['param_compute_amplitudes_tmax'] == "":
-    #     config['param_compute_amplitudes_tmax'] = None  # when App is run on Bl, no value for this parameter corresponds to ''
-
-    
-    ## Define kwargs ##
-
-    # # Delete headshape
-    # if 'headshape' in config.keys():
-    #     del config['headshape']
-
+ 
     # Delete keys values in config.json when this app is executed on Brainlife
-    config = helper.define_kwargs(config) 
-    kwargs = config  
+    kwargs = helper.define_kwargs(config) 
 
     # Apply head pos
     head_pos(raw, **kwargs)
