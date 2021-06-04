@@ -12,7 +12,8 @@ Repository of a Brainlife App that computes time varying head positions from `ra
     * an optional crosstalk compensation file in `.fif`,
     * an optional head position file in `.pos`,
     * an optional destination file in `.fif`,
-    * an optional event file in `.tsv`.
+    * an optional events file in `.tsv`,
+    * an optional channels file in `.tsv`.
 4) Input parameters are:
     * `param_compute_amplitudes_t_step_min`: `float`, minimum time step to use to compute cHPI amplitudes. Default is 0.01.
     * `param_compute_amplitudes_t_window`: `float`, time window to use to estimate the amplitudes. Default is 0.2.
