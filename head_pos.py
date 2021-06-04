@@ -90,7 +90,7 @@ def main():
     # Convert empty strings values to None
     config = helper.convert_parameters_to_None(config)
 
-    # Read and optionam files
+    # Read and save optional files
     config = helper.read_optional_files(config, 'out_dir')
  
     # Delete keys values in config.json when this app is executed on Brainlife
