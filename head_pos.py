@@ -4,7 +4,7 @@ import mne
 import json
 import os
 import shutil
-import helper
+from brainlife_apps_helper import helper
 
 
 def head_pos(raw, param_compute_amplitudes_t_step_min, 
