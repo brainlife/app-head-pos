@@ -3,7 +3,6 @@
 import mne
 import json
 import os
-import shutil
 from brainlife_apps_helper import helper
 
 
@@ -91,11 +90,11 @@ def main():
     config = helper.convert_parameters_to_None(config)
 
     # Read and save optional files
-    config = helper.read_optional_files(config, 'out_dir')
- 
+    config = helper.read_optional_files(config, 'out_dir')[0]
+
     # Delete keys values in config.json when this app is executed on Brainlife
     kwargs = helper.define_kwargs(config) 
-
+    
     # Apply head pos
     head_pos(raw, **kwargs)
 
