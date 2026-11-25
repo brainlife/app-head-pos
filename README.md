@@ -12,7 +12,7 @@
 
 This App computes time-varying head positions from the cHPI signals stored in a MEG `.fif` recording, following the [MNE-Python head position tutorial](https://mne.tools/stable/auto_tutorials/preprocessing/plot_59_head_positions.html). It uses `mne.chpi` to estimate the cHPI amplitudes, the coil locations and finally the head positions. The resulting `.pos` file is used for movement compensation in the bad-channel detection and Maxwell filtering Apps.
 
-## 🧠 At a glance
+## At a glance
 
 <!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
 
@@ -22,27 +22,27 @@ Uses mne.chpi to compute cHPI amplitudes, coil locations and head positions from
 
 | | |
 |---|---|
-| 📥 **Inputs** | `neuro/meg/fif` · `neuro/meg/fif-override` (optional) |
-| 📤 **Outputs** | `neuro/meg/fif-override` |
-| 🐳 **Container** | `brainlife/mne:0.23dev` |
-| ⚙️ **Resources** | 1 CPUs |
-| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.499](https://doi.org/10.25663/brainlife.app.499) |
+| **Inputs** | `neuro/meg/fif` · `neuro/meg/fif-override` (optional) |
+| **Outputs** | `neuro/meg/fif-override` |
+| **Container** | `brainlife/mne:0.23dev` |
+| **Resources** | 1 CPUs |
+| **Run it** | [doi.org/10.25663/brainlife.app.499](https://doi.org/10.25663/brainlife.app.499) |
 
-#### 📥 Inputs
+#### Inputs
 
 | Input | Datatype | Required | Description |
 |---|---|---|---|
 | `fif` | `neuro/meg/fif` | yes | MEG data in .fif format containing cHPI data. |
 | `Opt` | `neuro/meg/fif-override` | no | Optional destination file computed by app-mean-transformation-matrix. |
 
-#### 📤 Outputs
+#### Outputs
 
 | Output | Datatype | Description |
 |---|---|---|
 | `out_dir` | `neuro/meg/fif-override` | .pos file containing the time-varying head positions. This file will be used during detection of bad channels in MEG data (app-bad-channels) and Maxwell filtering (app-maxwell-filter) steps. |
 
 <details>
-<summary><b>⚙️ Parameters</b> (11)</summary>
+<summary><b>Parameters</b> (11)</summary>
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
@@ -62,9 +62,9 @@ Uses mne.chpi to compute cHPI amplitudes, coil locations and head positions from
 
 <!-- brainlife-app:end -->
 
-## 🚀 Running the App
+## Running the App
 
-### ☁️ On brainlife.io
+### On brainlife.io
 
 Open the App at [doi.org/10.25663/brainlife.app.499](https://doi.org/10.25663/brainlife.app.499), choose a MEG dataset (`neuro/meg/fif`) that contains cHPI recordings and, optionally, a `neuro/meg/fif-override` dataset with a destination file (for example from the [mean head position App](https://github.com/brainlife/app-mean-transformation-matrix)), then press **Execute**. The App archives a `neuro/meg/fif-override` dataset with the head positions.
 
@@ -84,7 +84,7 @@ All parameters are advanced and map onto the MNE-Python functions:
 | `param_compute_head_pos_gof_limit` | 0.98 | `compute_head_pos(gof_limit)`: minimum goodness of fit for each coil |
 | `param_compute_head_pos_adjust_dig` | false | `compute_head_pos(adjust_dig)` |
 
-### 💻 Locally
+### Locally
 
 You need [Singularity/Apptainer](https://apptainer.org/). `main` runs `head_pos.py` in the `brainlife/mne:0.23dev` container.
 
@@ -119,7 +119,7 @@ You need [Singularity/Apptainer](https://apptainer.org/). `main` runs `head_pos.
    ./main
    ```
 
-## 📦 Outputs
+## Outputs
 
 ```text
 out_dir/
@@ -129,12 +129,12 @@ product.json         status message shown on brainlife.io
 
 The `.pos` file can be read with [`mne.chpi.read_head_pos`](https://mne.tools/stable/generated/mne.chpi.read_head_pos.html). Optional input files given in `config.json` are passed through to `out_dir/`.
 
-## 🩺 Troubleshooting
+## Troubleshooting
 
 - **Error about HPI coils too close to the sensors**: by default `param_compute_locs_too_close` is `raise`; set it to `warning` or `info` to continue.
 - **No head positions**: the input must contain cHPI recordings; the App cannot compute positions from data recorded without continuous HPI.
 
-## 📚 Citing
+## Citing
 
 > [!TIP]
 > If you use this App in your work, please cite the App, the software it builds on and brainlife.io (below). GitHub's **Cite this repository** button gives the App citation in APA and BibTeX.
@@ -144,13 +144,13 @@ The `.pos` file can be read with [`mne.chpi.read_head_pos`](https://mne.tools/st
 - Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. *Nature Methods* 21:809–813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
 - Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. *Scientific Data* 6:69 (2019). [doi:10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
 
-## 👥 Authors
+## Authors
 
 - Aurore Bussalb
 
 **Contributors:** Maximilien Chaumon
 
-## 💰 Funding
+## Funding
 
 [![Wellcome-226486/Z/22/Z](https://img.shields.io/badge/Wellcome-226486%2FZ%2F22%2FZ-purple.svg)](https://wellcome.org/)
 [![NIH-NINDS-U24NS140384](https://img.shields.io/badge/NIH_NINDS-U24NS140384-green.svg)](https://reporter.nih.gov/project-details/11261037)
@@ -169,6 +169,6 @@ The `.pos` file can be read with [`mne.chpi.read_head_pos`](https://mne.tools/st
 
 <sub>brainlife.io is publicly funded, and acknowledging that support helps keep it running. This App was developed with support from Wellcome, the U.S. National Institutes of Health (including the BRAIN Initiative BRAIN CONNECTS program: The Axonal Projectome EXchange, U24NS140384, and the Center for Mesoscale Connectomics, UM1NS132207) and the U.S. National Science Foundation.</sub>
 
-## ⚖️ License
+## License
 
 [MIT](LICENSE). MNE-Python is distributed under its own BSD license.
